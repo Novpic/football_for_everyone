@@ -14,7 +14,7 @@ class _NextMatchesState extends State<NextMatches > {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future(){},
+      future: Future(() => null),
       builder: (context, snapshot){
         if(snapshot.hasError){
           return const Icon(Icons.warning);
