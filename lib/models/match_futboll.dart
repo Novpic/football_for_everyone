@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:football_for_everyone/models/fixture.dart';
 import 'package:football_for_everyone/models/team.dart';
 
-class Match {
+class MatchFutboll {
   final Fixture fixture;
   final Team home;
   final Team away;
   
-  Match({
+  MatchFutboll({
     required this.fixture,
     required this.home,
     required this.away,
@@ -23,8 +23,8 @@ class Match {
     };
   }
 
-  factory Match.fromMap(Map<String, dynamic> map) {
-    return Match(
+  factory MatchFutboll.fromMap(Map<String, dynamic> map) {
+    return MatchFutboll(
       fixture: Fixture.fromMap(map['fixture']),
       home: Team.fromMap(map['teams']['home']),
       away: Team.fromMap(map['teams']['away']),
@@ -33,5 +33,5 @@ class Match {
 
   String toJson() => json.encode(toMap());
 
-  factory Match.fromJson(String source) => Match.fromMap(json.decode(source));
+  factory MatchFutboll.fromJson(String source) => MatchFutboll.fromMap(json.decode(source));
 }

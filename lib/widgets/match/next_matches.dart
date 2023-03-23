@@ -20,11 +20,12 @@ class _NextMatchesState extends ConsumerState<NextMatches> {
         error: (error, stackTrace) => Text(error.toString()),
         data: (data) {
           return ListView.builder(
-              itemCount: 15,
+              itemCount: data.length,
               itemBuilder: (context, index) {
                 return Container(
+                  alignment: Alignment.center,
                   padding: EdgeInsets.all(5),
-                  child: MatchCard(),
+                  child: MatchCard(match: data[index]),
                 );
               });
         });

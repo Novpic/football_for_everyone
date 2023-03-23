@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:football_for_everyone/models/match.dart';
+import 'package:football_for_everyone/models/match_futboll.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/fixture.dart';
@@ -11,7 +11,7 @@ import '../models/fixture.dart';
 class MatchService {
   var client = http.Client();
 
-  Future<List<Match>> getNextMatches() async {
+  Future<List<MatchFutboll>> getNextMatches() async {
     try {
       await dotenv.load();
       var response = await client.get(
@@ -29,7 +29,7 @@ class MatchService {
     return [];
   }
 
-  Stream<List<Match>> get nextMaches async* {
+  Stream<List<MatchFutboll>> get nextMaches async* {
     //dotenv.load();
     
     // var response = await client.get(
@@ -51,11 +51,11 @@ class MatchService {
     // }
     final mockedlist = await rootBundle.loadString('mockups/matches.json');
     final response = (json.decode(mockedlist)['response']);
-    final List<Match> listMatch = response.map((e)=>Match.fromMap(e)).toList().cast<Match>();
+    final List<MatchFutboll> listMatch = response.map((e)=>MatchFutboll.fromMap(e)).toList().cast<MatchFutboll>();
     yield listMatch;
   }
 }
 
 final matchServiceProvider = Provider((ref) => MatchService());
 final teamServiceStream =
-    StreamProvider<List<Match>>((ref) => MatchService().nextMaches);
+    StreamProvider<List<MatchFutboll>>((ref) => MatchService().nextMaches);
