@@ -26,8 +26,8 @@ class Match {
   factory Match.fromMap(Map<String, dynamic> map) {
     return Match(
       fixture: Fixture.fromMap(map['fixture']),
-      home: Team.fromMap(map['home']),
-      away: Team.fromMap(map['away']),
+      home: Team.fromMap(map['teams']['home']),
+      away: Team.fromMap(map['teams']['away']),
     );
   }
 
