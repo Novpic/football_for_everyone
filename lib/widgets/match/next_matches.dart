@@ -1,38 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../services/match_service.dart';
 import 'match_card.dart';
 
-class NextMatches extends StatefulWidget {
-  const NextMatches ({super.key});
+class NextMatches extends ConsumerStatefulWidget {
+  const NextMatches({super.key});
 
   @override
-  State<NextMatches> createState() => _NextMatchesState();
+  ConsumerState<NextMatches> createState() => _NextMatchesState();
 }
 
-class _NextMatchesState extends State<NextMatches > {
-
+class _NextMatchesState extends ConsumerState<NextMatches> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Future(() => null),
-      builder: (context, snapshot){
-        if(snapshot.hasError){
-          return const Icon(Icons.warning);
-        }
-        else if(snapshot.hasData){
+    final streamMatch = ref.watch(teamServiceStream);
+    return streamMatch.when(
+        loading: () => const CircularProgressIndicator(),
+        error: (error, stackTrace) => Text(error.toString()),
+        data: (data) {
           return ListView.builder(
-            itemCount: 15,
-            itemBuilder: (context, index){
-              return Container(
-                padding: EdgeInsets.all(5),
-                child: MatchCard(),
-              );
-            });
-        }
-        else{
-          return const CircularProgressIndicator();
-        }
-      }
-    );
+              itemCount: 15,
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: EdgeInsets.all(5),
+                  child: MatchCard(),
+                );
+              });
+        });
   }
 }
